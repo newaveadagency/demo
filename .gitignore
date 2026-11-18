@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+_site/
+*.tmp
+_raw/
+*/README.md
+*/_raw/
+*/*.png
+/UPUTE.md
+/README.md
