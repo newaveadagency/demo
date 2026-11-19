@@ -10,9 +10,9 @@ window.CMS_CONFIG = {
   uploadDir: "img/uploads",
   phone: "+385981876508",
   email: "autoservislabar@gmail.com",
-  buttonClass: "btn btn-red",
+  buttonClass: "btn btn-accent",
   activeClass: "on",
-  sectionTemplate: '<div class="wrap"><span class="tag">Nova sekcija</span><h2 style="margin-top:16px;color:var(--navy)">Novi naslov</h2><p class="lead" style="margin-top:14px">Kliknite ovdje i upišite tekst.</p></div>',
+  sectionTemplate: '<div class="wrap"><span class="tag">Nova sekcija</span><h2 style="margin-top:16px;color:var(--ink)">Novi naslov</h2><p class="lead" style="margin-top:14px">Kliknite ovdje i upišite tekst.</p></div>',
   pages: [
     { file: "index.html", name: "Naslovnica" },
     { file: "usluge.html", name: "Usluge" }

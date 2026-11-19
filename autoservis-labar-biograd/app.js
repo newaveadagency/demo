@@ -12,43 +12,43 @@
     $$(".menu a").forEach(function (a) { a.addEventListener("click", function () { menu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }); });
   }
 
-  /* otkrivanje pri skrolanju (fade, maska, pečat, clip, crtanje ceste) */
+  /* otkrivanje pri skrolanju (fade, maska, clip-path, crtanje linije krova, linija postupka) */
   var els = $$("[data-anim]");
   if (reduce || !("IntersectionObserver" in window)) els.forEach(function (el) { el.classList.add("in"); });
   else {
+    /* element skriven clip-pathom nema vidljivu površinu, pa za njega promatramo roditelja */
+    var wait = [];
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
-    els.forEach(function (el) { io.observe(el); });
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        wait.forEach(function (w) { if (w.t === e.target) w.el.classList.add("in"); });
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+    els.forEach(function (el) {
+      var t = /^(clip|wipe)$/.test(el.getAttribute("data-anim")) ? el.parentNode : el;
+      wait.push({ el: el, t: t });
+      io.observe(t);
+    });
   }
 
-  /* zaglavlje se smanjuje + paralaksa slike u heroju */
-  var nav = $(".nav"), par = $("[data-parallax]"), ticking = false;
+  /* zaglavlje se smanjuje + paralaksa fotografija zgrade i čekaonice */
+  var nav = $(".nav"), pars = $$("[data-parallax]"), ticking = false;
   function onScroll() {
     var y = window.pageYOffset;
     if (nav) nav.classList.toggle("small", y > 40);
-    if (par && !reduce) {
-      var r = par.parentNode.getBoundingClientRect();
+    if (!reduce) pars.forEach(function (im) {
+      var box = im.parentNode, r = box.getBoundingClientRect();
       if (r.bottom > 0 && r.top < innerHeight) {
         var k = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight + r.height)));
-        par.style.transform = "translate3d(0," + (-k * (par.offsetHeight - r.height)).toFixed(1) + "px,0)";
+        im.style.transform = "translate3d(0," + (-k * (im.offsetHeight - r.height)).toFixed(1) + "px,0)";
       }
-    }
+    });
     ticking = false;
   }
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
   onScroll();
-
-  /* nagib kartica usluga */
-  if (!reduce && window.matchMedia("(hover:hover)").matches) {
-    $$("[data-tilt]").forEach(function (c) {
-      c.addEventListener("mousemove", function (e) {
-        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-        c.style.transform = "perspective(800px) rotateX(" + (-y * 7).toFixed(2) + "deg) rotateY(" + (x * 9).toFixed(2) + "deg) translateY(-4px)";
-      });
-      c.addEventListener("mouseleave", function () { c.style.transform = ""; });
-    });
-  }
 
   /* natpis OTVORENO / ZATVORENO (Pon–Pet 8–16, Europe/Zagreb) */
   $$("[data-open]").forEach(function (el) {
