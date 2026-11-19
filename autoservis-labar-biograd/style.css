@@ -43,7 +43,7 @@ section{padding:110px 0}
 .serif{font-family:var(--serif);font-style:italic}
 
 /* gumbi */
-.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border:1px solid var(--ink);border-radius:2px;font:600 14px/1 var(--sans);letter-spacing:.06em;text-decoration:none;cursor:pointer;overflow:hidden;isolation:isolate;transition:background .3s,color .3s,border-color .3s,transform .2s}
+.btn{position:relative;display:inline-flex;white-space:nowrap;align-items:center;gap:10px;padding:15px 26px;border:1px solid var(--ink);border-radius:2px;font:600 14px/1 var(--sans);letter-spacing:.06em;text-decoration:none;cursor:pointer;overflow:hidden;isolation:isolate;transition:background .3s,color .3s,border-color .3s,transform .2s}
 .btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-110%);transition:transform .7s var(--ease)}
 .btn:hover::after{transform:translateX(110%)}
 .btn:active{transform:translateY(1px)}
@@ -129,7 +129,7 @@ section{padding:110px 0}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .card{position:relative;padding:40px 36px 44px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;overflow:hidden;isolation:isolate;transition:color .45s var(--ease)}
 .card::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
-.card .no{position:absolute;top:30px;right:32px;font:italic 500 22px/1 var(--serif);color:var(--silver)}
+.card .no{position:absolute;top:30px;right:32px;font:italic 500 22px/1 var(--serif);color:var(--steel)}
 .card .ic{display:grid;place-items:center;width:54px;height:54px;border:1px solid var(--line);border-radius:50%;color:var(--ink);margin-bottom:28px;transition:border-color .45s,color .45s}
 .card .ic .i{width:24px;height:24px}
 .card h3{font-size:22px;margin-bottom:10px}
