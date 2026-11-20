@@ -1,0 +1,284 @@
+/* Gianni – sladoled i slastice, Dubrovnik (demo) */
+@font-face{font-family:"Fredoka";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/fredoka-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Fredoka";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/fredoka-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Pacifico";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/pacifico-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Pacifico";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/pacifico-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/dmsans-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/dmsans-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --tq:#1fa8b3;--tq-d:#0f7a84;--tq-l:#c9eef0;--ink:#0d3c42;--ink2:#3c6469;
+  --stone:#f7f0e4;--stone2:#efe3cf;--white:#fff;
+  --pink:#f2798f;--pink-l:#fde0e5;--sun:#f7c844;--sun-l:#fff1c4;--sky:#3fb6dc;--choc:#4a2a20;
+  --r:22px;--sh:0 18px 40px -18px rgba(13,60,66,.35);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--stone);color:var(--ink);font:400 17px/1.65 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--tq-d)}
+h1,h2,h3{font-family:"Fredoka","DM Sans",sans-serif;font-weight:600;line-height:1.08;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(40px,5.6vw,74px)}
+h2{font-size:clamp(32px,4.2vw,54px)}
+h3{font-size:24px}
+p{margin:0}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;z-index:99}
+.skip:focus{left:12px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:8px}
+.i{width:20px;height:20px;flex:none}
+.script{font-family:"Pacifico",cursive;font-weight:400;color:var(--tq);letter-spacing:0}
+.kick{display:inline-flex;align-items:center;gap:8px;font:600 14px/1 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.14em;color:var(--tq-d)}
+.kick::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--pink);box-shadow:14px 0 0 var(--sun),28px 0 0 var(--sky);margin-right:30px}
+.lead{font-size:19px;color:var(--ink2);max-width:60ch}
+
+/* gumbi */
+.btn{--bg:var(--tq);display:inline-flex;align-items:center;gap:10px;background:var(--bg);color:#fff;font:600 17px/1 "Fredoka",sans-serif;padding:16px 26px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;box-shadow:0 6px 0 var(--tq-d);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.btn:active{transform:translateY(3px) scale(.97,1.02);box-shadow:0 2px 0 var(--tq-d)}
+.btn-ghost{--bg:#fff;color:var(--ink);box-shadow:0 6px 0 var(--stone2),inset 0 0 0 2px var(--tq-l)}
+.btn-pink{--bg:var(--pink);box-shadow:0 6px 0 #c95169}
+.btn .i{transition:transform .3s}
+.btn:hover .i{transform:translateX(4px)}
+
+/* zaglavlje */
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,240,228,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:box-shadow .3s,padding .3s}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding:12px 0;transition:padding .3s}
+.nav.small{box-shadow:0 8px 24px -16px rgba(13,60,66,.5)}
+.nav.small .wrap{padding:6px 0}
+.logo{display:flex;align-items:center;text-decoration:none;flex:none}
+.logo img{height:78px;width:auto;transition:height .3s}
+.nav.small .logo img{height:58px}
+.menu{display:flex;gap:4px;list-style:none;margin:0 auto;padding:0}
+.menu a{position:relative;display:block;padding:10px 14px;font:500 17px/1 "Fredoka",sans-serif;color:var(--ink);text-decoration:none;border-radius:999px;transition:background .2s}
+.menu a::after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:3px;border-radius:3px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.menu a.on{color:var(--tq-d)}
+.cta{display:flex;align-items:center;gap:12px}
+.tel{display:inline-flex;align-items:center;gap:8px;font:600 17px/1 "Fredoka",sans-serif;color:var(--ink);text-decoration:none}
+.tel .i{color:var(--tq)}
+.cta .btn{padding:12px 20px;font-size:16px}
+.burger{display:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--tq-l);color:var(--ink);cursor:pointer;padding:11px}
+
+/* hero */
+.hero{position:relative;padding:40px 0 120px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1 .w{display:inline-block}
+.hero h1 em,.phero h1 em{font-style:normal;font-family:"Pacifico",cursive;font-weight:400;color:var(--tq);font-size:.86em;display:inline-block;transform:rotate(-3deg);margin-top:.12em}
+.hero .lead{margin-top:22px}
+.acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;color:var(--ink2);font-size:15px}
+.facts span{display:inline-flex;align-items:center;gap:8px}
+.facts .i{color:var(--tq)}
+.hero-art{position:relative;aspect-ratio:1/1.02}
+.blob{position:absolute;inset:4% 2% 2% 6%;background:var(--tq);border-radius:58% 42% 47% 53%/45% 55% 45% 55%;animation:morph 14s ease-in-out infinite}
+.blob.b2{inset:14% 0 0 22%;background:var(--pink);opacity:.9;animation-duration:18s;animation-direction:reverse;border-radius:40% 60% 60% 40%/60% 40% 60% 40%}
+@keyframes morph{0%,100%{border-radius:58% 42% 47% 53%/45% 55% 45% 55%}33%{border-radius:42% 58% 60% 40%/58% 42% 58% 42%}66%{border-radius:52% 48% 38% 62%/40% 60% 40% 60%}}
+.hero-photo{position:absolute;inset:9% 6% 7% 10%;border-radius:48% 52% 45% 55%/52% 46% 54% 48%;overflow:hidden;box-shadow:var(--sh);border:8px solid #fff}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
+.sticker{position:absolute;display:grid;place-items:center;text-align:center;border-radius:50%;font:600 13px/1.15 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.06em;box-shadow:var(--sh)}
+.sticker b{display:block;font:400 28px/1.15 "Pacifico",cursive;text-transform:none;letter-spacing:0}
+.s1{width:132px;height:132px;left:-2%;bottom:6%;background:var(--sun);color:var(--choc);transform:rotate(-10deg)}
+.s2{width:116px;height:116px;right:-1%;top:2%;background:#fff;color:var(--tq-d);transform:rotate(8deg)}
+.s1 span,.s2 span{animation:bob 4s ease-in-out infinite}
+.s2 span{animation-delay:-2s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.scoop{position:absolute;border-radius:50%;opacity:.9;animation:float 9s ease-in-out infinite;pointer-events:none}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-18px)}}
+.drip{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:90px;display:block}
+.drip path{animation:drip 7s ease-in-out infinite;transform-origin:bottom}
+@keyframes drip{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.08)}}
+
+/* marquee */
+.mq-wrap{background:var(--tq);color:#fff;overflow:hidden;padding:14px 0 18px}
+.marquee .track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.marquee span{display:inline-flex;align-items:center;font:500 24px/1 "Fredoka",sans-serif;white-space:nowrap;padding-right:42px}
+.marquee span::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--sun);margin-left:42px}
+.marquee span:nth-child(3n+2)::after{background:var(--pink)}
+.marquee span:nth-child(3n)::after{background:#fff}
+.mq-wrap:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sekcije */
+.sec{padding:110px 0;position:relative}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:30px 60px;align-items:end;margin-bottom:54px}
+.sec-head h2{margin-top:14px}
+.center{text-align:center}
+.center .lead{margin-inline:auto}
+.bg-white{background:#fff}
+.bg-tq{background:var(--tq);color:#fff}
+.bg-tq .lead{color:#e4f8f9}
+.bg-tq .kick{color:#fff}
+.wave{display:block;width:100%;height:60px}
+
+/* priča */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.story-ph{position:relative}
+.story-ph .arch{border-radius:260px 260px 26px 26px;overflow:hidden;box-shadow:var(--sh);aspect-ratio:4/5}
+.story-ph .arch img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.story-ph:hover .arch img{transform:scale(1.05)}
+.lantern{position:absolute;right:-40px;top:-30px;width:150px;height:150px;border-radius:50%;overflow:hidden;border:6px solid #fff;box-shadow:var(--sh);background:#fff;transform-origin:50% -40%;animation:swing 5s ease-in-out infinite}
+.lantern img{width:100%;height:100%;object-fit:cover;object-position:28% 40%;transform:scale(1.5)}
+@keyframes swing{0%,100%{transform:rotate(5deg)}50%{transform:rotate(-5deg)}}
+.story h2{margin:14px 0 22px}
+.story p+p{margin-top:16px}
+.quote{margin-top:28px;padding:22px 26px;border-radius:var(--r);background:var(--tq-l);font:500 20px/1.4 "Fredoka",sans-serif;color:var(--ink)}
+.ings{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;padding:0;list-style:none}
+.ings li{padding:9px 16px;border-radius:999px;background:#fff;border:2px solid var(--stone2);font:500 15px/1 "Fredoka",sans-serif;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s}
+.ings li:hover{transform:translateY(-3px) rotate(-2deg);background:var(--sun-l)}
+
+/* trio kartice */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:#fff;border-radius:28px;overflow:hidden;box-shadow:var(--sh);transition:transform .35s cubic-bezier(.34,1.56,.64,1);transform-style:preserve-3d;color:var(--ink);text-decoration:none;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:4/3;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.card:hover .ph img{transform:scale(1.07)}
+.card .tx{padding:24px 26px 28px}
+.card h3{margin-bottom:10px}
+.card .tag{display:inline-block;margin-bottom:12px;padding:6px 12px;border-radius:999px;font:600 13px/1 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.t1{background:var(--pink-l);color:#a63650}.t2{background:var(--sun-l);color:#7a5a00}.t3{background:var(--tq-l);color:var(--tq-d)}
+
+/* broj okusa */
+.flav{display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center}
+.big{position:relative;width:260px;height:260px;border-radius:50%;background:#fff;color:var(--tq);display:grid;place-items:center;text-align:center;box-shadow:0 0 0 14px rgba(255,255,255,.18),0 0 0 28px rgba(255,255,255,.08)}
+.big b{display:block;font:600 120px/0.9 "Fredoka",sans-serif}
+.big small{display:block;font:600 15px/1.2 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.35);font:500 17px/1 "Fredoka",sans-serif}
+.chip .i{color:var(--sun)}
+
+/* galerija */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:16px}
+.gal figure{margin:0;border-radius:24px;overflow:hidden;position:relative;box-shadow:var(--sh)}
+.gal figure:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gal figure:nth-child(4){grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.gal figure:hover img{transform:scale(1.06) rotate(.6deg)}
+.gal figcaption{position:absolute;left:12px;bottom:12px;padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.92);font:500 14px/1 "Fredoka",sans-serif;color:var(--ink)}
+
+/* posjet / kontakt */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+.info{background:#fff;border-radius:28px;padding:34px;box-shadow:var(--sh)}
+.info dl{margin:22px 0 0;display:grid;gap:18px}
+.info dt{display:flex;align-items:center;gap:8px;font:600 14px/1 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--tq-d)}
+.info dd{margin:6px 0 0;font-size:18px}
+.info dd a{color:var(--ink);font-weight:700}
+.info .btn{margin-top:26px}
+.map-ph{margin-top:24px;border-radius:22px;overflow:hidden;aspect-ratio:16/9}
+.map-ph img{width:100%;height:100%;object-fit:cover}
+form.lead-form{background:var(--ink);color:#fff;border-radius:28px;padding:34px;display:grid;gap:16px}
+form.lead-form h3{color:#fff}
+form.lead-form p{color:#bfe3e6;font-size:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:grid;gap:7px;font:500 15px/1.2 "Fredoka",sans-serif}
+input,select,textarea{width:100%;font:400 16px/1.4 "DM Sans",sans-serif;padding:13px 15px;border-radius:14px;border:2px solid transparent;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--sun);outline:0}
+textarea{min-height:120px;resize:vertical}
+form .btn{justify-self:start;--bg:var(--sun);color:var(--choc);box-shadow:0 6px 0 #c99a1c}
+.ok{display:none;padding:12px 16px;border-radius:14px;background:var(--tq);font-size:15px}
+
+/* FAQ */
+.faq{max-width:860px;margin:0 auto;display:grid;gap:14px}
+.faq details{background:#fff;border-radius:22px;box-shadow:0 10px 30px -22px rgba(13,60,66,.5);overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:22px 64px 22px 26px;font:500 20px/1.3 "Fredoka",sans-serif;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:20px;top:50%;width:34px;height:34px;margin-top:-17px;border-radius:50%;background:var(--tq-l);color:var(--tq-d);display:grid;place-items:center;font:600 22px/1 "Fredoka",sans-serif;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .2s}
+.faq details[open] summary::after{transform:rotate(135deg);background:var(--pink);color:#fff}
+.faq .a{padding:0 26px 24px;color:var(--ink2)}
+
+/* ponuda stranica */
+.phero{padding:60px 0 110px;position:relative;overflow:hidden}
+.phero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.phero .ph{border-radius:200px 200px 28px 28px;overflow:hidden;aspect-ratio:5/6;box-shadow:var(--sh);border:8px solid #fff}
+.phero .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.jump a{padding:10px 18px;border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font:500 16px/1 "Fredoka",sans-serif;box-shadow:0 4px 0 var(--stone2);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.jump a:hover{transform:translateY(-3px) rotate(-2deg)}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.feature.rev .ph{order:2}
+.feature .ph{position:relative}
+.feature .ph .main{border-radius:32px;overflow:hidden;box-shadow:var(--sh);aspect-ratio:4/3}
+.feature .ph .main img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.feature .ph:hover .main img{transform:scale(1.05)}
+.feature .ph .mini{position:absolute;width:44%;right:-22px;bottom:-34px;border-radius:24px;overflow:hidden;border:6px solid #fff;box-shadow:var(--sh);aspect-ratio:1}
+.feature.rev .ph .mini{right:auto;left:-22px}
+.feature .ph .mini img{width:100%;height:100%;object-fit:cover}
+.feature h2{margin:14px 0 20px}
+.feature p+p{margin-top:14px}
+.ticks{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start}
+.ticks li::before{content:"";flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;background:var(--sun) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a2a20' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat}
+.note{margin-top:22px;padding:16px 20px;border-radius:18px;background:var(--pink-l);font-size:16px;color:#7a2a3c}
+.cta-band{background:var(--pink);color:#fff;border-radius:36px;padding:56px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;position:relative;overflow:hidden}
+.cta-band h2{color:#fff}
+.cta-band p{margin-top:12px;color:#fff3f5;font-size:18px}
+.cta-band .btn{--bg:#fff;color:var(--ink);box-shadow:0 6px 0 #c95169}
+.cta-band::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.14);right:-60px;top:-90px}
+
+/* podnožje */
+footer.foot{background:var(--ink);color:#cfe6e8;padding:70px 0 120px;margin-top:0}
+.foot .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:34px}
+.foot img{width:150px;height:auto}
+.foot h4{margin:0 0 14px;font:600 15px/1 "Fredoka",sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#fff}
+.foot a{color:#fff;text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot .legal{margin-top:46px;padding-top:22px;border-top:1px solid rgba(255,255,255,.15);font-size:14px;color:#9fc4c8;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+/* mobilni gumbi */
+.mbar{display:none}
+
+/* animacije (samo uz js) */
+.js [data-anim]{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.js [data-anim="pop"]{transform:translateY(40px) scale(.7) rotate(-6deg);transition:opacity .6s,transform .7s cubic-bezier(.34,1.56,.64,1)}
+.js [data-anim="scale"]{transform:scale(.86)}
+.js [data-anim="tilt"]{transform:translateY(40px) rotate(-3deg)}
+.js [data-anim="left"]{transform:translateX(-40px)}
+.js [data-anim].in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;gap:2px;background:var(--stone);padding:96px 20px 26px;box-shadow:0 20px 40px -20px rgba(0,0,0,.4);transform:translateY(-110%);transition:transform .4s cubic-bezier(.2,.8,.2,1);z-index:-1}
+  .menu.open{transform:none}
+  .menu a{font-size:22px;padding:14px 10px}
+  .burger{display:block}
+  .tel span{display:none}
+  .hero .wrap,.story,.visit,.feature,.phero .wrap,.flav{grid-template-columns:1fr}
+  .feature.rev .ph{order:0}
+  .sec-head{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+  .foot .cols{grid-template-columns:1fr 1fr}
+  .hero-art{max-width:520px;width:100%;margin:0 auto}
+  .lantern{right:-6px}
+  .flav .big{margin:0 auto}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .sec{padding:76px 0}
+  .hero{padding:20px 0 90px}
+  .cta .btn{display:none}
+  .logo img{height:50px}
+  .trio{grid-template-columns:1fr}
+  .gal{grid-auto-rows:150px;gap:10px}
+  .gal figure:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .row2{grid-template-columns:1fr}
+  .cta-band{grid-template-columns:1fr;padding:36px 26px}
+  .foot .cols{grid-template-columns:1fr}
+  .big{width:200px;height:200px}.big b{font-size:92px}
+  .s1{width:104px;height:104px}.s2{width:96px;height:96px}
+  .sticker b{font-size:22px}
+  .feature .ph .mini{width:40%;right:-6px;bottom:-24px}
+  .feature.rev .ph .mini{left:-6px}
+  .info,form.lead-form{padding:26px 22px}
+  .lantern{width:110px;height:110px;top:-20px}
+  .scoop{display:none}
+  .mbar{display:grid;grid-template-columns:repeat(3,1fr);position:fixed;left:10px;right:10px;bottom:10px;z-index:60;background:var(--ink);border-radius:20px;padding:6px;box-shadow:0 14px 30px -10px rgba(0,0,0,.5)}
+  .mbar a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;color:#fff;text-decoration:none;font:500 13px/1 "Fredoka",sans-serif;border-radius:14px}
+  .mbar a:first-child{background:var(--tq)}
+  .mbar .i{width:22px;height:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js [data-anim]{opacity:1;transform:none}
+}
