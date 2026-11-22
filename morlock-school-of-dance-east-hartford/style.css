@@ -85,7 +85,7 @@ p{margin:0}
 .hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,70%) var(--my,30%),rgba(183,156,255,.30),transparent 60%),linear-gradient(180deg,transparent 55%,rgba(22,10,46,.55));pointer-events:none}
 .hero-tag{position:absolute;left:-22px;bottom:34px;background:#fff;border-radius:16px;box-shadow:var(--sh2);padding:16px 20px;display:grid;gap:2px;max-width:250px}
 .hero-tag b{font-size:30px;font-weight:800;color:var(--violet);line-height:1}
-.hero-tag span{font-size:14px;color:var(--ink2);line-height:1.35}
+.hero-tag>span{font-size:14px;color:var(--ink2);line-height:1.35}
 .hero-quote{position:absolute;right:20px;top:20px;color:#fff;font-size:30px;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
 
 /* marquee */
@@ -108,7 +108,7 @@ p{margin:0}
 .step a.more{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:700;text-decoration:none}
 
 /* class cards */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--sh);transition:transform .35s,box-shadow .35s,border-color .35s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:#d6cbf3}
 .card .age{display:inline-block;font-size:13px;font-weight:700;color:var(--violet);background:var(--lilac);border-radius:999px;padding:4px 12px;margin-bottom:14px}
@@ -300,3 +300,58 @@ textarea{min-height:110px;resize:vertical}
   .js [data-anim]{opacity:1!important;transform:none!important;clip-path:none!important}
   .js .ribbon path{stroke-dashoffset:0!important}
 }
+
+/* ===== Movement layer: ribbons, glitter, footsteps, curtains ===== */
+@media (max-width:1020px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:720px){.cards{grid-template-columns:1fr}}
+.hero-in{z-index:1}
+.hero-ribbons{position:absolute;inset:auto 0 0 0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.9}
+.hero-h .script .dl{display:inline-block;transform-origin:50% 90%}
+.glitter{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.glitter i{position:absolute;bottom:-10px;width:var(--s,6px);height:var(--s,6px);background:#fff;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.feet{position:absolute;left:0;right:0;top:-104px;width:100%;height:104px;pointer-events:none;z-index:0}
+.steps{margin-top:84px}
+.feet .ft{fill:var(--violet);opacity:0}
+.marq-rev{border-top:0;background:var(--plum)}
+.marq-rev .marq-t span{color:#fff}
+.marq-rev .marq-t span i{color:var(--glow)}
+.marq-t{will-change:transform}
+.stage{position:relative}
+.stage .wrap{position:relative;z-index:2}
+.curtain{position:absolute;top:0;bottom:0;width:51%;z-index:5;pointer-events:none;
+  background:repeating-linear-gradient(90deg,#3a0f5e 0 26px,#52177f 26px 44px,#2a0a45 44px 70px);box-shadow:inset 0 -40px 60px rgba(0,0,0,.45)}
+.curtain::after{content:"";position:absolute;left:0;right:0;top:0;height:46px;background:linear-gradient(#1b0630,#3a0f5e);box-shadow:0 8px 18px rgba(0,0,0,.5)}
+.cl{left:0;transform-origin:left top}.cr{right:0;transform-origin:right top}
+.spot{position:absolute;left:50%;top:-10%;width:900px;height:120%;margin-left:-450px;z-index:1;pointer-events:none;
+  background:conic-gradient(from 160deg at 50% 0%,transparent 0deg,rgba(183,156,255,.18) 14deg,rgba(255,255,255,.10) 20deg,rgba(183,156,255,.18) 26deg,transparent 40deg);transform-origin:50% 0;mix-blend-mode:screen}
+.card,.step{transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.card:hover,.step:hover{box-shadow:0 30px 60px -30px rgba(91,47,196,.45)}
+.hero-card img{transform-origin:50% 60%}
+
+@media (prefers-reduced-motion:no-preference){
+  .rb1{stroke-dasharray:14 10;animation:rbflow 6s linear infinite}
+  .rb3{stroke-dasharray:3 9;animation:rbflow 4s linear infinite reverse}
+  @keyframes rbflow{to{stroke-dashoffset:-240}}
+  .hero-card img{animation:veil 9s ease-in-out infinite}
+  @keyframes veil{0%,100%{transform:scale(1.06) rotate(0) translate(0,0)}33%{transform:scale(1.09) rotate(-.8deg) translate(-1%,-1.2%)}66%{transform:scale(1.07) rotate(.6deg) translate(1%,.6%)}}
+  .hero-h .script.dance .dl{animation:sway 2.6s ease-in-out infinite;animation-delay:calc(var(--i) * .12s + 1.2s)}
+  @keyframes sway{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-.12em) rotate(-6deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-.06em) rotate(5deg)}}
+  .glitter i{animation:rise var(--d,6s) linear infinite;animation-delay:var(--dl,0s)}
+  @keyframes rise{0%{transform:translate(0,0) rotate(0) scale(.6);opacity:0}12%{opacity:1}80%{opacity:.9}100%{transform:translate(var(--dx,20px),-110vh) rotate(260deg) scale(1);opacity:0}}
+  .feet .ft{animation:stepin 6s ease-in-out infinite;animation-delay:calc(var(--i) * .42s)}
+  @keyframes stepin{0%{opacity:0;transform-box:fill-box}6%{opacity:.85}40%{opacity:.85}55%,100%{opacity:0}}
+  .js .curtain{transition:transform 1.6s cubic-bezier(.7,0,.2,1)}
+  .js .stage.open .cl{transform:translateX(-96%) skewX(-4deg)}
+  .js .stage.open .cr{transform:translateX(96%) skewX(4deg)}
+  .spot{animation:sweep 7s ease-in-out infinite}
+  @keyframes sweep{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
+  .stage-grid img{animation:kb 14s ease-in-out infinite alternate}
+  .stage-grid figure:nth-child(2) img{animation-delay:-5s}.stage-grid figure:nth-child(3) img{animation-delay:-9s}
+  @keyframes kb{from{transform:scale(1)}to{transform:scale(1.08) translate(-1.5%,-1%)}}
+  .step-n{animation:pulse 3s ease-in-out infinite}
+  .step:nth-child(3) .step-n{animation-delay:.6s}.step:nth-child(4) .step-n{animation-delay:1.2s}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(122,82,224,.35)}50%{box-shadow:0 0 0 10px rgba(122,82,224,0)}}
+}
+@media (prefers-reduced-motion:reduce){.curtain{display:none}.glitter{display:none}.feet .ft{opacity:.5}}
+@media (max-width:720px){.feet{display:none}.spot{width:600px;margin-left:-300px}.curtain{display:none}}
+@media (max-width:1240px){.js .stage.open .cl{transform:translateX(-100%)}.js .stage.open .cr{transform:translateX(100%)}}
