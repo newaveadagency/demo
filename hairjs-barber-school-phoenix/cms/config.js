@@ -8,7 +8,7 @@ window.CMS_CONFIG = {
   branch: "main",
   siteUrl: "https://newaveadagency.github.io/demo/hairjs-barber-school-phoenix/",
   uploadDir: "img/uploads",
-  phone: "+16233415082",
+  phone: "+16233415125",
   email: "",
   buttonClass: "btn btn-gold",
   activeClass: "on",
